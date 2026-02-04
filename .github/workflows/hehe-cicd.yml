@@ -39,21 +39,21 @@ jobs:
      - name: Deploy to EC2
        uses: appleboy/scp-action@v0.1.7
        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ec2-user # Default user for Amazon Linux
-          key: ${{ secrets.DEPLOY_KEY }}
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }} # Default user for Amazon Linux
+          key: ${{ secrets.EC2_SSH_KEY }}
           source: 'demo/target/demo-0.0.1-SNAPSHOT.jar' # Path to your JAR file
-          target: '/home/ec2-user/deployment' # Destination directory on EC2
+          target: '/home/ec2-user' # Destination directory on EC2
 
      - name: Run application on EC2
        uses: appleboy/ssh-action@v1.0.3
        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ec2-user
-          key: ${{ secrets.DEPLOY_KEY }}
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ec2-user/deployment
+            cd /home/ec2-user
             # Kill any existing process running on the app port (e.g., 8080)
-            sudo kill -9 $(sudo lsof -t -i:${{ secrets.DEPLOY_PORT }}) || true
+            sudo kill -9 $(sudo lsof -t -i:8080) || true
             # Run the new JAR file as a background process
-            nohup java -jar demo-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+            nohup java -jar demo-0.0.1-SNAPSHOT.jar
