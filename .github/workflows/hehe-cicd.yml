@@ -41,6 +41,9 @@ jobs:
        uses: actions/download-artifact@v4
        with:
           name: demo-app
+
+     - name: List downloaded files
+       run: ls -R
         
      - name: Deploy to EC2
        uses: appleboy/scp-action@v0.1.7
