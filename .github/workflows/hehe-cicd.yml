@@ -51,7 +51,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }} # Default user for Amazon Linux
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "demo-app.jar" # Path to your JAR file
+          source: "demo-0.0.1-SNAPSHOT.jar" # Path to your JAR file
           target: "/home/ec2-user" # Destination directory on EC2
 
      - name: Run application on EC2
@@ -65,4 +65,4 @@ jobs:
             # Kill any existing process running on the app port (e.g., 8080)
             sudo kill -9 $(sudo lsof -t -i:8080) || true
             # Run the new JAR file as a background process
-            nohup java -jar demo-app.jar > demo-app.log 2>&1 &
+            nohup java -jar demo-0.0.1-SNAPSHOT.jar > demo-app.log 2>&1 &
