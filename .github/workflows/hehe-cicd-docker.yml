@@ -1,1 +1,13 @@
+name: Spring Boot CI/CD to AWS EC2 using Docker
 
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-hehe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
