@@ -21,7 +21,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./demo
+          file: ./demo/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/my-springboot:latest # Replace with your image name
           
